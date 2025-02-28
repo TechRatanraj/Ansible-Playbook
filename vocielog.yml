@@ -1,0 +1,17 @@
+- name: Find and delete the voice logs from the call server
+  hosts: Voice_Logs
+  become: true
+  tasks:
+    - name: Find directories starting with '2024-05'
+      find:
+        paths: "/dacx/var/ameyo/dacxdata/voicelogs/DefaultCC"
+        patterns: "2024-05*"
+        file_type: directory
+      register: found_dirs
+
+    - name: Remove old voice logs
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ found_dirs.files }}"
+      when: found_dirs.matched > 0
