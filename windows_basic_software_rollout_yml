@@ -1,0 +1,38 @@
+- name: Install Basic Software on Windows
+  hosts: windows
+  tasks:
+  
+    - name: Ensure Chocolatey is installed
+      win_shell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force;
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+        iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      args:
+        executable: powershell.exe
+      register: chocolatey_result
+      changed_when: "'Chocolatey (choco.exe) is now ready' in chocolatey_result.stdout"
+
+    - name: Install Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: present
+
+    - name: Install Mozilla Firefox
+      win_chocolatey:
+        name: firefox
+        state: present
+
+    - name: Install VLC Media Player
+      win_chocolatey:
+        name: vlc
+        state: present
+
+    - name: Install 7-Zip
+      win_chocolatey:
+        name: 7zip
+        state: present
+
+    - name: Install Notepad++
+      win_chocolatey:
+        name: notepadplusplus
+        state: present
