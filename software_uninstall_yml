@@ -1,0 +1,42 @@
+- name: Uninstall Basic Software from Windows
+  hosts: windows
+  tasks:
+    - name: Uninstall Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: absent
+        remove_dependencies: true
+        force: yes
+        skip_scripts: false
+
+    - name: Uninstall Mozilla Firefox
+      win_chocolatey:
+        name: firefox
+        state: absent
+        remove_dependencies: true
+        force: yes
+        skip_scripts: false
+
+    - name: Uninstall VLC Media Player
+      win_chocolatey:
+        name: vlc
+        state: absent
+        remove_dependencies: true
+        force: yes
+        skip_scripts: false
+
+    - name: Uninstall 7-Zip
+      win_chocolatey:
+        name: 7zip.install  # Corrected package name
+        state: absent
+        remove_dependencies: true
+        force: yes
+        skip_scripts: false
+
+    - name: Uninstall Notepad++
+      win_chocolatey:
+        name: "notepadplusplus.install"
+        state: absent
+        remove_dependencies: true
+        force: yes
+        skip_scripts: false
